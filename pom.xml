@@ -8,8 +8,8 @@
     <version>1.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>pkfare API Schema Bindings</name>
-    <description>Java bindings generated from the pkfare API Gateway OpenAPI specification.</description>
+    <name>PKFARE API Schema Bindings</name>
+    <description>Java bindings generated from the PKFARE API Gateway OpenAPI specification.</description>
 
     <properties>
         <java.version>25</java.version>
@@ -95,7 +95,7 @@
                             <generateModelTests>false</generateModelTests>
                             <generateModelDocumentation>false</generateModelDocumentation>
                             <generateSupportingFiles>true</generateSupportingFiles>
-                            <skipValidateSpec>true</skipValidateSpec>
+                            <skipValidateSpec>false</skipValidateSpec>
                             <configOptions>
                                 <serializationLibrary>jackson</serializationLibrary>
                                 <dateLibrary>java8</dateLibrary>

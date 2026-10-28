@@ -1,61 +1,53 @@
-# vietjet-api-schema
+# pkfare-api-schema
 
-This repository contains the Schema bindings for VietJet APIs, generated from the VietJet API Gateway OpenAPI specification.
-
-You can find the schema in **_`src/main/resources`_**.
-
-## Prerequisites
-
-* Java 25
-* Maven 3.5.0 or later
+Java 25 bindings for the PKFARE SEARCH API, generated from
+`src/main/resources/SEARCH_SCHEMA.yaml` using the existing OpenAPI Generator
+7.14.0 Maven setup and Jackson serialization.
 
 ## Build
 
-To build the VietJet API Schema, run the following command:
+Use JDK 25 and Maven (or `./mvnw`):
 
 ```shell
-
 mvn clean install
-
 ```
 
-## Usage
+Generation runs during `generate-sources`. Sources are written to
+`target/generated-sources/openapi/src/main/java/com/verteil/schema/pkfare` and
+compiled into `target/pkfare-api-schema-1.2.0-SNAPSHOT.jar`. Generated sources
+stay under `target/`; edit the schema rather than the generated Java files.
 
-To use the VietJet API Schema, add the following dependency to your project:
+## Use from another repository
 
-### Gradle
-
-```groovy
-
-implementation 'com.verteil.schema:vietjet-api-schema:artifact-version^'
-
-```
-
-### Maven
+After local installation, add:
 
 ```xml
-
 <dependency>
     <groupId>com.verteil.schema</groupId>
-    <artifactId>vietjet-api-schema</artifactId>
-    <version>artifact-version^</version>
+    <artifactId>pkfare-api-schema</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
 </dependency>
-
 ```
 
-###### ** ^ Replace with latest artifact version**
+The entry models are `com.verteil.schema.pkfare.SearchRequest` and
+`com.verteil.schema.pkfare.SearchResponse`. Nested models have explicit names
+such as `SearchFlight`, `SearchTicket`, and `SearchPrice`.
+Jackson dependencies are supplied transitively. Consumers need Java 25 or later.
+For other machines, publish with the existing CodeArtifact deployment workflow
+and configure the consumer's repository access and credentials. A GitHub push
+alone does not publish a Maven dependency. Deployment settings are unchanged.
 
-## Schema Customizations
+## Schema notes
 
-`src/main/resources/SEARCH_SCHEMA.yaml` is VietJet's API Gateway OpenAPI spec, with the changes below.
-VietJet's spec leaves several properties untyped (`type: object`) or typed incorrectly, so the generated
-models expose `Object` / the wrong type. These changes give them proper types.
-When updating the spec from VietJet, check whether each change is still needed and re-apply it.
+The vendor's JSON fields, required lists, types, and examples are preserved.
+Inline schema titles provide stable Java model names without changing JSON.
+OpenAPI validation is enabled during generation. Monetary `number` properties
+use the generator's existing `BigDecimal` mapping; date strings retain PKFARE's
+specified string representation.
 
-| Ticket | Model | Property | Original | Changed to | Reason |
-|--------|-------|----------|----------|------------|--------|
-| POD-38395 | `ReservationPassengerModel` | `infants` | array of `type: object` | array of `ReservationPassengerInfantModel` | Typed infant details on passengers |
-| POD-38389 | `ReservationModel` | `charges` | array of `type: object` | array of `ReservationChargeModel` | Typed reservation charges (fare/tax breakdown) |
-| POD-38389 | `AncillaryOptionsModel` | `ancillaryCharges` | single `AncillaryChargesModel` | array of `AncillaryChargesModel` | VJ returns a list, not a single object |
-| POD-38389 | `AncillaryChargesModel` | `description` | `type: object` | `type: string` | VJ returns a plain string |
-| POD-38389 | `ReservationPassengerJourneyDetailModel` | `cabinClass` | _(missing)_ | `CabinClassModel` | Property returned by VJ but missing from the spec |
+The supplied request descriptions for `tag` and `returnTagPrice` appear reversed
+relative to the introductory documentation and example. Confirm their semantics
+with PKFARE before integration; neither field has been changed here.
+
+Release tags use `pkfare-api-schema-<version>` and the existing release/deploy
+workflow publishes to the configured CodeArtifact repositories.

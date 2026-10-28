@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: ''
+  title: PKFARE Search API
   description: ''
   version: 1.0.0
 paths:
@@ -79,6 +79,7 @@ paths:
         content:
           application/json:
             schema:
+              title: SearchRequest
               type: object
               properties:
                 adultNumber:
@@ -204,6 +205,7 @@ paths:
           content:
             application/json:
               schema:
+                title: SearchResponse
                 type: object
                 properties:
                   status:
@@ -215,11 +217,13 @@ paths:
                   shoppingResultList:
                     type: array
                     items:
+                      title: SearchShoppingResult
                       type: object
                       properties:
                         flightRefList:
                           type: array
                           items:
+                            title: SearchFlightReference
                             type: object
                             properties:
                               flightRefNum:
@@ -286,6 +290,7 @@ paths:
                         ticketList:
                           type: array
                           items:
+                            title: SearchTicket
                             type: object
                             properties:
                               ticketSeq:
@@ -296,6 +301,7 @@ paths:
                               priceList:
                                 type: array
                                 items:
+                                  title: SearchPrice
                                   type: object
                                   properties:
                                     passengerType:
@@ -350,6 +356,7 @@ paths:
                               freeBaggageList:
                                 type: array
                                 items:
+                                  title: SearchFreeBaggage
                                   type: object
                                   properties:
                                     travelDirection:
@@ -433,6 +440,7 @@ paths:
                               refundInfoList:
                                 type: array
                                 items:
+                                  title: SearchRefundInfo
                                   type: object
                                   properties:
                                     passengerType:
@@ -454,6 +462,7 @@ paths:
                                     conditionList:
                                       type: array
                                       items:
+                                        title: SearchRefundCondition
                                         type: object
                                         properties:
                                           start:
@@ -505,6 +514,7 @@ paths:
                               changeInfoList:
                                 type: array
                                 items:
+                                  title: SearchChangeInfo
                                   type: object
                                   properties:
                                     passengerType:
@@ -520,6 +530,7 @@ paths:
                                     conditionList:
                                       type: array
                                       items:
+                                        title: SearchChangeCondition
                                         type: object
                                         properties:
                                           start:
@@ -567,6 +578,7 @@ paths:
                               otherFareRules:
                                 type: array
                                 items:
+                                  title: SearchOtherFareRule
                                   type: object
                                   properties:
                                     passengerType:
@@ -654,6 +666,7 @@ paths:
                   flightList:
                     type: array
                     items:
+                      title: SearchFlight
                       type: object
                       properties:
                         flightRefNum:
@@ -719,6 +732,7 @@ paths:
                         stops:
                           type: array
                           items:
+                            title: SearchStop
                             type: object
                             properties:
                               stopAirport:
